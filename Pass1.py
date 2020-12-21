@@ -2,7 +2,8 @@ import sys
 import re
 import numpy as np
 
-memory = np.zeros(2048,dtype=np.uint16)
+memory = ['0000'] * 2048
+addresses = []
 
 def CheckWords(word,labelsArr):
     pattern1 = re.findall('[0-9]+\(',word)
@@ -19,7 +20,6 @@ def firstPass():
     
     branches = ["BR","BEQ","BNE","BLO","BLS","BHI","BHS"]
     labelsArr = []
-    addresses = []
     labelsDic = dict()
     
     f = open('test.txt', "r")
@@ -108,3 +108,5 @@ def firstPass():
     return split_lines
 
 print(firstPass())
+print(addresses)
+print(memory[0:30])
