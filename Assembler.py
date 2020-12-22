@@ -8,9 +8,9 @@ orig_lines = []
 
 
 def CheckWords(word, labelsArr):
-    pattern1 = re.findall('[0-9]+\(', word)
-    pattern2 = re.findall('#[0-9]+', word)
-    pattern3 = re.findall('^[0-9]+$', word)
+    pattern1 = re.findall(r'[0-9]+\(', word)
+    pattern2 = re.findall(r'#[0-9]+', word)
+    pattern3 = re.findall(r'^[0-9]+$', word)
 
     pattern4 = word in labelsArr
 
@@ -25,7 +25,7 @@ def firstPass():
     labelsArr = []
     labelsDic = dict()
 
-    f = open('test.txt', "r")
+    f = open(sys.argv[1], "r")
 
     split_lines = []
     while(True):
@@ -52,7 +52,10 @@ def firstPass():
     nextAddres = 0
     deletedLines = []
     for i, line in enumerate(split_lines):
-
+        if line[0] == '.=':
+            nextAddres = int(line[1])
+            deletedLines.append(line)
+            continue
         if len(line) == 1:
             if line[0].replace(':', '') not in labelsArr:
                 addresses.append(nextAddres)
@@ -114,9 +117,12 @@ def firstPass():
 
     return split_lines
 
+# print(firstPass())
+# print(addresses)
+# print(memory[0:30])
+
 # @TODO
 # 1- Add offset to branch instructions
-
 
 # Every String will map to a decimal number that would be added to the
 # other valuse of the opcodes and then would be transformed to a hexa string
