@@ -22,7 +22,7 @@ def firstPass():
     labelsArr = []
     labelsDic = dict()
     
-    f = open('test.txt', "r")
+    f = open('test2.txt', "r")
 
     split_lines = []
     while(True):
@@ -37,6 +37,9 @@ def firstPass():
         semicolon_removed = uppercase_line.strip().split(';')[0]
         if(semicolon_removed.find(':') != -1):                         
             labelsArr.append(semicolon_removed.strip().split(':')[0])
+
+        if(semicolon_removed.split(" ")[0] == "DEFINE"):
+            labelsArr.append(semicolon_removed.split(" ")[1])
 
         split_line = semicolon_removed.split()
         if len(split_line) == 0:

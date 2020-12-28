@@ -19,5 +19,5 @@ Label2: 		; address 23
 BR Label3 		; address 23
 HLT 			; address 24
 mov @100(R1) , R2 ; address 25
-N: .word 7 ; address 27
-M: .word 5 ; address 28
+Define N 7 ; address 27
+Define M 5 ; address 28

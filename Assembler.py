@@ -41,6 +41,9 @@ def firstPass():
         if(semicolon_removed.find(':') != -1):
             labelsArr.append(semicolon_removed.strip().split(':')[0])
 
+        if(semicolon_removed.split(" ")[0] == "DEFINE"):
+            labelsArr.append(semicolon_removed.split(" ")[1])    
+
         split_line = semicolon_removed.split()
         if len(split_line) == 0:
             continue
@@ -78,13 +81,13 @@ def firstPass():
                 nextAddres += 1 + CheckWords(line[1], labelsArr)
 
         elif len(line) == 3:
-            if line[0].replace(':', '') in labelsArr:
-                if line[1] == ".WORD":
+            if line[0] == "DEFINE":
                     memory[nextAddres] = format(int(line[2]), '04x')
-                    labelsDic[line[0].replace(":", "")] = nextAddres
+                    labelsDic[line[1]] = nextAddres
                     nextAddres += 1
                     deletedLines.append(line)
-                elif line[1] in branches:
+            elif line[0].replace(':', '') in labelsArr:
+                if line[1] in branches:
                     addresses.append(nextAddres)
                     labelsDic[line[0].replace(":", "")] = nextAddres
                     nextAddres += 1
