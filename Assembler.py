@@ -47,7 +47,7 @@ def firstPass():
         split_lines.append(split_line)
         orig_lines.append(line)
     # close file
-    f.close
+    f.close()
 
     nextAddres = 0
     deletedLines = []
@@ -388,11 +388,9 @@ def write_to_file():
     for i in memory:
         f.write(i + "\n")
 
-    f.close
+    f.close()
 
 
 first_pass_lines = firstPass()
-for i in first_pass_lines:
-    print(i)
 secondpass(first_pass_lines)
 write_to_file()
