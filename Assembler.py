@@ -387,9 +387,11 @@ def secondpass(split_lines):
 
 
 def write_to_file():
-    f = open(sys.argv[2], "w")
-    for i in memory:
-        f.write(i + "\n")
+    f = open('memory.mem', "w")
+    f.write("// instance=/ram/ram\n")
+    f.write("// format=mti addressradix=d dataradix=h version=1.0 wordsperline=1\n")
+    for index, i in enumerate(memory):
+        f.write(str(index) + ": "+ i + "\n")
 
     f.close()
 
