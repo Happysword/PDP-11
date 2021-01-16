@@ -10,7 +10,7 @@ ENTITY ram IS
         r : IN STD_LOGIC;
         WMFC : INOUT STD_LOGIC;
         address : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-        data : INOUT STD_LOGIC_VECTOR(n - 1 DOWNTO 0);
+        data : INOUT STD_LOGIC_VECTOR(n - 1 DOWNTO 0));
 END ram;
 
 ARCHITECTURE arch_ram OF ram IS
