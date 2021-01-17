@@ -21,7 +21,7 @@ sim:/pdp/MDR \
 sim:/pdp/RAM_DATA \
 sim:/pdp/MDR_DATA_IN \
 sim:/pdp/TEMP \
-sim:/pdp/DECODER_PORTMAP/PLA/MICRO_PC \
+-radix octal sim:/pdp/DECODER_PORTMAP/PLA/MICRO_PC \
 -radix binary sim:/pdp/FLAG\
 sim:/pdp/GENERAL_REGISTERS_IN \
 sim:/pdp/GENERAL_REGISTERS_OUT\

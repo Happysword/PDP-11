@@ -22,7 +22,7 @@ ARCHITECTURE arch_ram OF ram IS
 BEGIN
         PROCESS (clk) IS
         BEGIN
-                IF rising_edge(clk) THEN
+                IF falling_edge(clk) THEN
                         IF w = '1' THEN
                                 ram(to_integer(unsigned(address))) <= data;
                                 WRITE_TO_MDR <= '0';

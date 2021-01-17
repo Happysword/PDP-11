@@ -73,8 +73,8 @@ BEGIN
 							-- 65
 							WHEN 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 =>
 								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(65, MICRO_PC_COUNTER'length));
-								MICRO_PC_COUNTER( 5 DOWNTO 4) <= IR_REGISTER( 5 DOWNTO 4);
-								MICRO_PC_COUNTER(3) <= NOT IR_REGISTER(5);
+								MICRO_PC_COUNTER( 5 DOWNTO 4) <= IR_REGISTER( 11 DOWNTO 10);
+								MICRO_PC_COUNTER(3) <= IR_REGISTER(9) AND NOT IR_REGISTER(11) AND NOT IR_REGISTER(10);
 
 
 							-- ONE OPERAND INSTRUCTIONS
@@ -116,8 +116,8 @@ BEGIN
 
 					--13, 15, 17, 21, 23, 25, 27, 31, 33, 35, 37, 41, 43, 45, 47, 51, 53 ===>> 274 OR 275
 					--11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43 ===>> 188 OR 189
-					WHEN 13 | 15 | 17 | 19 | 21 | 23 | 25 | 27 | 29 | 31 | 33 | 35| 37 | 39 | 41 | 43 =>
-						IF IR_REGISTER(9) = '1' THEN
+					WHEN 11 | 13 | 15 | 17 | 19 | 21 | 23 | 25 | 27 | 29 | 31 | 33 | 35| 37 | 39 | 41 | 43 =>
+						IF IR_REGISTER(3) = '0' THEN
 							MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(189, MICRO_PC_COUNTER'length));
 						ELSE
 							MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(188, MICRO_PC_COUNTER'length));
@@ -139,7 +139,7 @@ BEGIN
 					--123, 143 ==>> 166 OR 167
 					--83 , 99  ==>> 118 OR 119
 					WHEN 83 | 99 =>
-						IF IR_REGISTER(9) = '1' THEN
+						IF IR_REGISTER(9) = '0' THEN
 							MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(119, MICRO_PC_COUNTER'length));
 						ELSE
 							MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(118, MICRO_PC_COUNTER'length));
@@ -151,7 +151,7 @@ BEGIN
 					WHEN 120 =>
 						MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(129, MICRO_PC_COUNTER'length));
 						MICRO_PC_COUNTER( 5 DOWNTO 4) <= IR_REGISTER( 5 DOWNTO 4);
-						MICRO_PC_COUNTER(3) <= NOT IR_REGISTER(5);
+						MICRO_PC_COUNTER(3) <= IR_REGISTER(3) AND NOT IR_REGISTER(4) AND NOT IR_REGISTER(5);
 
 
 					--212 ==>> 267
@@ -163,7 +163,7 @@ BEGIN
 					--223, 243 ==>> 266 OR 267
 					--147, 163 ==>> 182 OR 183
 					WHEN 147 | 163 =>
-						IF IR_REGISTER(9) = '1' THEN
+						IF IR_REGISTER(3) = '0' THEN
 							MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(183, MICRO_PC_COUNTER'length));
 						ELSE
 							MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(182, MICRO_PC_COUNTER'length));
@@ -186,38 +186,43 @@ BEGIN
 							MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(40, MICRO_PC_COUNTER'length));
 							
 						-- SWITCH CASE OVER ALU VALUES
-						ELSE CASE F5 IS 
-							WHEN "0000" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(10, MICRO_PC_COUNTER'length));
+						ELSE CASE IR_FIRST_FOUR IS 
 							WHEN "0001" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(12, MICRO_PC_COUNTER'length));
+								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(10, MICRO_PC_COUNTER'length));
 							WHEN "0010" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(14, MICRO_PC_COUNTER'length));
+								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(12, MICRO_PC_COUNTER'length));
 							WHEN "0011" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(16, MICRO_PC_COUNTER'length));
+								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(14, MICRO_PC_COUNTER'length));
 							WHEN "0100" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(18, MICRO_PC_COUNTER'length));
+								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(16, MICRO_PC_COUNTER'length));
 							WHEN "0101" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(20, MICRO_PC_COUNTER'length));
+								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(18, MICRO_PC_COUNTER'length));
 							WHEN "0110" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(22, MICRO_PC_COUNTER'length));
+								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(20, MICRO_PC_COUNTER'length));
 							WHEN "0111" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(24, MICRO_PC_COUNTER'length));
-							WHEN "1000" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(26, MICRO_PC_COUNTER'length));
+								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(22, MICRO_PC_COUNTER'length));
 							WHEN "1001" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(28, MICRO_PC_COUNTER'length));
-							WHEN "1010" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(30, MICRO_PC_COUNTER'length));
-							WHEN "1011" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(32, MICRO_PC_COUNTER'length));
-							WHEN "1100" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(34, MICRO_PC_COUNTER'length));
-							WHEN "1101" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(36, MICRO_PC_COUNTER'length));
-							WHEN "1110" =>
-								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(38, MICRO_PC_COUNTER'length));
-							WHEN "1111" =>
+								CASE IR_NEXT_SIX IS
+									WHEN "000011" =>
+										MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(24, MICRO_PC_COUNTER'length));
+									WHEN "000100" =>
+										MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(26, MICRO_PC_COUNTER'length));
+									WHEN "000101" =>
+										MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(28, MICRO_PC_COUNTER'length));
+									WHEN "000110" =>
+										MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(30, MICRO_PC_COUNTER'length));
+									WHEN "000111" =>
+										MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(32, MICRO_PC_COUNTER'length));
+									WHEN "001000" =>
+										MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(34, MICRO_PC_COUNTER'length));
+									WHEN "000000" =>
+										MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(36, MICRO_PC_COUNTER'length));
+									WHEN "000001" =>
+										MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(38, MICRO_PC_COUNTER'length));
+									WHEN OTHERS =>
+										MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(255, MICRO_PC_COUNTER'length));
+								END CASE;
+							WHEN "0000" =>
 								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(42, MICRO_PC_COUNTER'length));
 							WHEN OTHERS =>
 								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(255, MICRO_PC_COUNTER'length));
