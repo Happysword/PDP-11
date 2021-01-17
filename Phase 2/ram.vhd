@@ -9,8 +9,9 @@ ENTITY ram IS
         w : IN STD_LOGIC;
         r : IN STD_LOGIC;
         WMFC : INOUT STD_LOGIC;
-        address : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-        data : INOUT STD_LOGIC_VECTOR(n - 1 DOWNTO 0));
+        address : IN STD_LOGIC_VECTOR(n - 1 DOWNTO 0);
+        data : INOUT STD_LOGIC_VECTOR(n - 1 DOWNTO 0);
+        WRITE_TO_MDR : OUT STD_LOGIC);
 END ram;
 
 ARCHITECTURE arch_ram OF ram IS
@@ -24,9 +25,14 @@ BEGIN
                 IF rising_edge(clk) THEN
                         IF w = '1' THEN
                                 ram(to_integer(unsigned(address))) <= data;
+                                WRITE_TO_MDR <= '0';
                         ELSIF r = '1' THEN
                                 data <= ram(to_integer(unsigned(address)));
+                                WRITE_TO_MDR <= '1';
+                        ELSE
+                                WRITE_TO_MDR <= '0';
                         END IF;
+                        WMFC <= '0';
                 END IF;
         END PROCESS;
 END arch_ram;

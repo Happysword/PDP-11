@@ -94,9 +94,33 @@ BEGIN
 	-- Address for branching
 	BRANCH_ADDRESS <= IR_REGISTER( 7 DOWNTO 0);
 
-	PROCESS(CLK)
+	PROCESS(CLK,RST)
 	BEGIN
-	IF FALLING_EDGE(CLK) THEN 
+	IF RST = '1' THEN
+		PC_OUT <= '0';
+		MDR_OUT <= '0';
+		Z_OUT <= '0';
+		TEMP_OUT <= '0';
+		ADDRESS_OUT <= '0';
+		REGISTERS_DST_OUT <= '0';
+		REGISTERS_SRC_OUT <= '0';
+		PC_IN <= '0';
+		IR_IN <= '0';
+		Z_IN <= '0';
+		TEMP_IN <= '0';
+		GENERAL_REGISTERS_IN  <= "0000000";
+		GENERAL_REGISTERS_OUT <= "0000000";
+		MAR_IN <= '0';
+		MDR_IN <= '0';
+		Y_IN <= '0';
+		READ_MEM <= '0';
+		WRITE_MEM <= '0';
+		CLEAR_Y <= '0';
+		CARRY_IN <= '0';
+		WMFC <= '0';
+		ALU_OPERATION <= "0000";
+
+	ELSIF FALLING_EDGE(CLK) THEN 
 		--DECODING OF THE MICROINSTRUCTION FROM THE CONTROL STORE
 		-- F1
 		CASE F1  IS
@@ -108,6 +132,7 @@ BEGIN
 				ADDRESS_OUT <= '0';
 				REGISTERS_DST_OUT <= '0';
 				REGISTERS_SRC_OUT <= '0';
+				
 							
 			when "0010" =>
 				PC_OUT <= '0';
