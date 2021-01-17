@@ -4,7 +4,7 @@ USE IEEE.numeric_std.all;
 
 ENTITY rom IS
 	PORT(
-		address : IN  std_logic_vector(8 DOWNTO 0);
+		address : IN  std_logic_vector(7 DOWNTO 0);
 		dataout : OUT std_logic_vector(19 DOWNTO 0));
 END rom;
 

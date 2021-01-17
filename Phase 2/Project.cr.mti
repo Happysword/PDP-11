@@ -1,10 +1,20 @@
-{G:/ThirdYearMaterial/Architecture/Project/Phase 2/IRDecoder.vhd} {1 {vcom -work work2 -2002 -explicit -stats=none {G:/ThirdYearMaterial/Architecture/Project/Phase 2/IRDecoder.vhd}
+{G:/ThirdYearMaterial/Architecture/Project/Phase 2/PLA.vhd} {1 {vcom -work work2 -2002 -explicit -stats=none {G:/ThirdYearMaterial/Architecture/Project/Phase 2/PLA.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Compiling entity IR_DECODER
--- Compiling architecture ARCH1 of IR_DECODER
+-- Loading package NUMERIC_STD
+-- Compiling entity PLA_COMP
+-- Compiling architecture ARCH1 of PLA_COMP
+
+} {} {}} {G:/ThirdYearMaterial/Architecture/Project/Phase 2/Rom.vhd} {1 {vcom -work work2 -2002 -explicit -stats=none {G:/ThirdYearMaterial/Architecture/Project/Phase 2/Rom.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity rom
+-- Compiling architecture arch_rom of rom
 
 } {} {}} {G:/ThirdYearMaterial/Architecture/Project/Phase 2/ALU.vhd} {1 {vcom -work work2 -2002 -explicit -stats=none {G:/ThirdYearMaterial/Architecture/Project/Phase 2/ALU.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -35,14 +45,5 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity my_adder
 -- Compiling entity my_nadder
 -- Compiling architecture a_my_nadder of my_nadder
-
-} {} {}} {G:/ThirdYearMaterial/Architecture/Project/Phase 2/Rom.vhd} {1 {vcom -work work2 -2002 -explicit -stats=none {G:/ThirdYearMaterial/Architecture/Project/Phase 2/Rom.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity rom
--- Compiling architecture arch_rom of rom
 
 } {} {}}
