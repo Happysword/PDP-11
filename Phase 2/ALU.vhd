@@ -7,7 +7,6 @@ use work.my_nadder;
 ENTITY ALU IS
 GENERIC (n : integer:=16);
 PORT ( A,B: IN std_logic_vector (n-1 DOWNTO 0);
-CIN: IN std_logic;
 SEL: IN std_logic_vector (3 DOWNTO 0);
 FLAG : INOUT std_logic_vector (2 DOWNTO 0);
 --COUT: OUT std_logic;
