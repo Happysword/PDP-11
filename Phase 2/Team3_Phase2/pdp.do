@@ -1,4 +1,4 @@
-exec python Assembler.py ./test-cases/codes/c6.txt
+exec python Assembler.py ./test-cases/codes/c1.txt
 vsim -gui work.pdp
 mem load -i {memory.mem} /pdp/RAM_PORTMAP/ram
 add wave  \

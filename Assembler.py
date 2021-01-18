@@ -239,10 +239,11 @@ RDest = {
 
 
 def secondpass(split_lines):
-
+    
     # addressing modes
     codeArr = []
     for cnt, i in enumerate(split_lines):
+        print(i)
         tempMem = []
         if i[0] not in operand_nums.keys():
             print('Syntax error in line', cnt+1, orig_lines[cnt])
@@ -284,10 +285,11 @@ def secondpass(split_lines):
                     temp = int(i[1].split('(')[0])
                     code_hex = format(temp, '04x')
                     tempMem.append(code_hex.upper())
-                    
-                else:
+                    # MOV 14 R2
+                else: 
                     code += RSource['7']
-                    temp = int(i[1])
+                    temp = int(i[1]) - (addresses[cnt] + 1)
+                    print(temp)
                     code_hex = format(temp, '04x')
                     tempMem.append(code_hex.upper())
                     

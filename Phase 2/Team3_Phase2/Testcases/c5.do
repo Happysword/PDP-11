@@ -1,6 +1,5 @@
-exec python Assembler.py ./test-cases/codes/c6.txt
 vsim -gui work.pdp
-mem load -i {memory.mem} /pdp/RAM_PORTMAP/ram
+mem load -i {c5.mem} /pdp/RAM_PORTMAP/ram
 add wave  \
 -radix binary sim:/pdp/CLK \
 sim:/pdp/RST \
