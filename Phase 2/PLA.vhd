@@ -113,6 +113,59 @@ BEGIN
 								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(255, MICRO_PC_COUNTER'length));
 						END CASE;
 								
+					-- BRANCHING INSTRUCTIONS
+					-- EITHER JUMP TO ZERO OR JUMP TO 5
+					WHEN 4 =>
+						CASE to_integer(unsigned( IR_NEXT_SIX )) IS 
+							--BR
+							WHEN 0 =>
+								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(5, MICRO_PC_COUNTER'length));
+							--BEQ
+							WHEN 1 =>
+								IF FLAGS(1) = '1' THEN 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(5, MICRO_PC_COUNTER'length));
+								ELSE 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(0, MICRO_PC_COUNTER'length));
+								END IF;
+							--BNE
+							WHEN 2 =>
+								IF FLAGS(1) = '0' THEN 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(5, MICRO_PC_COUNTER'length));
+								ELSE 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(0, MICRO_PC_COUNTER'length));
+								END IF;
+							--BLO
+							WHEN 3 =>
+								IF FLAGS(0) = '0' THEN 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(5, MICRO_PC_COUNTER'length));
+								ELSE 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(0, MICRO_PC_COUNTER'length));
+								END IF;
+							--BLS
+							WHEN 4 =>
+								IF FLAGS(0) = '0' OR FLAGS(1) = '1' THEN 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(5, MICRO_PC_COUNTER'length));
+								ELSE 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(0, MICRO_PC_COUNTER'length));
+								END IF;
+							--BHI
+							WHEN 5 =>
+								IF FLAGS(0) = '1' THEN 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(5, MICRO_PC_COUNTER'length));
+								ELSE 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(0, MICRO_PC_COUNTER'length));
+								END IF;
+							--BHS
+							WHEN 6 =>
+								IF FLAGS(0) = '1' OR FLAGS(0) = '1' THEN 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(5, MICRO_PC_COUNTER'length));
+								ELSE 
+									MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(0, MICRO_PC_COUNTER'length));
+								END IF;
+							--SHOULD NEVER REACH FOR ERRORS
+							WHEN OTHERS =>
+								MICRO_PC_COUNTER <= std_logic_vector(to_unsigned(255, MICRO_PC_COUNTER'length));
+						END CASE;
 
 					--13, 15, 17, 21, 23, 25, 27, 31, 33, 35, 37, 41, 43, 45, 47, 51, 53 ===>> 274 OR 275
 					--11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43 ===>> 188 OR 189

@@ -331,48 +331,49 @@ def secondpass(split_lines):
             
             i[1] = str(i[1])
             if i[0][0] == 'B':
-                offset = int(i[1]) - addresses[cnt]+1
+                offset = int(i[1]) - addresses[cnt]
                 if offset > 127 or offset < -128:
                     print('Logical error cannot jump to location in line', cnt+1, orig_lines[cnt])
                     break
                 #SEE HOW TO PUT THE NEGATIVE
                 if offset < 0:
-                    offset = 256 + offset
+                    offset = 255 + offset
                 code += offset
-            # DEST
-            if '@' in i[1]:
-                # indirect
-                code += 8
-                i[1] = i[1].replace('@', '')
+            else:
+                # DEST
+                if '@' in i[1]:
+                    # indirect
+                    code += 8
+                    i[1] = i[1].replace('@', '')
 
-            if '+' in i[1]:
-                code += 16
-                code += RDest[i[1].split('R')[1][0]]
-            elif '-' in i[1]:
-                code += 32
-                code += RDest[i[1].split('R')[1][0]]
-            elif i[1][0] == 'R':
-                code += 0
-                code += RDest[i[1][1]]
-            elif i[1][0] == '#':
-                code += 16
-                code += RDest['7']
-                temp = int(i[1][1:])
-                code_hex = format(temp, '04x')
-                tempMem.append(code_hex.upper())
-            else:  # PC and indexed
-                code += 48
-                if 'R' in i[1]:
+                if '+' in i[1]:
+                    code += 16
                     code += RDest[i[1].split('R')[1][0]]
-                    temp = int(i[1].split('(')[0])
-                    code_hex = format(temp, '04x')
-                    tempMem.append(code_hex.upper())
-                    
-                else:
+                elif '-' in i[1]:
+                    code += 32
+                    code += RDest[i[1].split('R')[1][0]]
+                elif i[1][0] == 'R':
+                    code += 0
+                    code += RDest[i[1][1]]
+                elif i[1][0] == '#':
+                    code += 16
                     code += RDest['7']
-                    temp = int(i[1])
+                    temp = int(i[1][1:])
                     code_hex = format(temp, '04x')
                     tempMem.append(code_hex.upper())
+                else:  # PC and indexed
+                    code += 48
+                    if 'R' in i[1]:
+                        code += RDest[i[1].split('R')[1][0]]
+                        temp = int(i[1].split('(')[0])
+                        code_hex = format(temp, '04x')
+                        tempMem.append(code_hex.upper())
+                        
+                    else:
+                        code += RDest['7']
+                        temp = int(i[1])
+                        code_hex = format(temp, '04x')
+                        tempMem.append(code_hex.upper())
 
         codeArr.append(code)
         if i[0] in opcodes_dict.keys():
